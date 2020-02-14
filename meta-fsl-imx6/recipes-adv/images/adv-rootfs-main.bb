@@ -26,6 +26,7 @@ CORE_IMAGE_EXTRA_INSTALL += " \
     fbida \
     openssh \
     stress \
+    iperf2 \
     "
 # install package for requirement
 CORE_IMAGE_EXTRA_INSTALL += " \

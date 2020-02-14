@@ -1,0 +1,5 @@
+#!/bin/sh -e
+echo "SISO_mode=0"
+cp -f /lib/firmware/lrdmwl/x0wifi.sh /usr/bin/lrdmwl
+sync 
+reboot 

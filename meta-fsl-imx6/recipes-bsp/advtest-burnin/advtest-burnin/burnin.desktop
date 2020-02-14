@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=burnin
+Comment = burnin test
+TryExec=gnome-terminal --working-directory=/home/root/advtest/burnin  -x sh -c './burnin.sh; exec bash '
+Exec=gnome-terminal --working-directory=/home/root/advtest/burnin  -x sh -c './burnin.sh; exec bash '
+Icon=utilities-terminal
+Type=Application
+X-GNOME-DocPath=gnome-terminal/index.html
+X-GNOME-Bugzilla-Bugzilla=GNOME
+X-GNOME-Bugzilla-Product=gnome-terminal
+X-GNOME-Bugzilla-Component=BugBuddyBugs
+X-GNOME-Bugzilla-Version=2.30.2
+StartupNotify=true

@@ -1,0 +1,11 @@
+--- a/tests/ts_test_mt.c
++++ b/tests/ts_test_mt.c
+@@ -272,7 +272,7 @@
+ 	/* Initialize buttons */
+ 	memset(&buttons, 0, sizeof(buttons));
+ 	buttons[0].w = buttons[1].w = buttons[2].w = xres / 4;
+-	buttons[0].h = buttons[1].h = buttons[2].h = 20;
++	buttons[0].h = buttons[1].h = buttons[2].h = 40;
+ 	buttons[0].x = 0;
+ 	buttons[1].x = (3 * xres) / 8;
+ 	buttons[2].x = (3 * xres) / 4;

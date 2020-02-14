@@ -1,0 +1,5 @@
+#!/bin/sh -e
+echo "SISO_mode=1"
+cp -f /lib/firmware/lrdmwl/x1wifi.sh /usr/bin/lrdmwl
+sync 
+reboot 

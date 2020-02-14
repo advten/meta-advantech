@@ -1,0 +1,51 @@
+diff --git a/recipes-bsp/firmware-lrdmwl/firmware-lrdmwl/lrdmwl b/recipes-bsp/firmware-lrdmwl/firmware-lrdmwl/lrdmwl
+index d0c2860..02f6e7a 100755
+--- a/recipes-bsp/firmware-lrdmwl/firmware-lrdmwl/lrdmwl
++++ b/recipes-bsp/firmware-lrdmwl/firmware-lrdmwl/lrdmwl
+@@ -60,22 +60,27 @@ else
+ 	install_fw
+ fi
+ 
+-echo "WIFI driver"
+-insmod /lib/firmware/lrdmwl/compat.ko
+-echo "insmod compat"
+-insmod /lib/firmware/lrdmwl/cfg80211.ko
+-echo "insmod cfg80211"
+-insmod /lib/firmware/lrdmwl/mac80211.ko
+-echo "insmod mac80211"
+-insmod /lib/firmware/lrdmwl/lrdmwl.ko
+-echo "insmod lrdmwl"
+-insmod /lib/firmware/lrdmwl/lrdmwl_sdio.ko
+-echo "insmod lrdmwl_sdio"
+-# ifconfig wlan0 up
++cat /proc/cmdline | grep wifibt_boot=1
++if [ $? -eq 0 ];then
++	echo "WIFI driver"
++	insmod /lib/firmware/lrdmwl/compat.ko
++	echo "insmod compat"
++	insmod /lib/firmware/lrdmwl/cfg80211.ko
++	echo "insmod cfg80211"
++	insmod /lib/firmware/lrdmwl/mac80211.ko
++	echo "insmod mac80211"
++	insmod /lib/firmware/lrdmwl/lrdmwl.ko
++	echo "insmod lrdmwl"
++	insmod /lib/firmware/lrdmwl/lrdmwl_sdio.ko
++	echo "insmod lrdmwl_sdio"
++	# ifconfig wlan0 up
+ 
+-echo "BT driver"
+-insmod /lib/firmware/lrdmwl/bluetooth.ko
+-echo "insmod bluetooth"
+-insmod /lib/firmware/lrdmwl/hci_uart.ko
+-echo "insmod hci_uart"
+-hciattach /dev/ttymxc1 any -s 3000000 3000000 flow dtron
+\ No newline at end of file
++	echo "BT driver"
++	insmod /lib/firmware/lrdmwl/bluetooth.ko
++	echo "insmod bluetooth"
++	insmod /lib/firmware/lrdmwl/hci_uart.ko
++	echo "insmod hci_uart"
++	hciattach /dev/ttymxc1 any -s 3000000 3000000 flow dtron
++else
++	echo no need to insmod wifibt driver
++fi

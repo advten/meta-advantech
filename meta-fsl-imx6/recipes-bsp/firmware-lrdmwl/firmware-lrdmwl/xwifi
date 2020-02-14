@@ -1,0 +1,5 @@
+#!/bin/sh -e
+echo "normal mode"
+cp -f /lib/firmware/lrdmwl/xwifi.sh /usr/bin/lrdmwl
+sync 
+reboot 

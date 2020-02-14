@@ -1,0 +1,15 @@
+Open device /dev/egalax_i2c done.
+Controller Info:
+	Type Name:	PCAP3147UI Series
+	Model Name:	Sirius_4473
+	FW Version:	00_test2
+	Parameter Version:	00.00
+
+File: read - SensorTestDefault.ini
+Read Parameter Read Parameter done.
+Start testing:
+ HW Signal:	 HW Signal:			Pass
+ Sensor Test1:	 Sensor Test1: (Open)		Fail
+ Sensor Test2:	 Sensor Test2: (Short)		Pass
+ Sensor Test3:	 Sensor Test3: (Mutual)		Pass
+ Create UTable:	----

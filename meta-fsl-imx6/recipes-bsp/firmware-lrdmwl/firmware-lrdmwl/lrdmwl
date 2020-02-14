@@ -1,0 +1,86 @@
+#!/bin/sh -e
+install_fw(){
+	rm -f /lib/firmware/lrdmwl/compat.ko
+	rm -f /lib/firmware/lrdmwl/cfg80211.ko
+	rm -f /lib/firmware/lrdmwl/mac80211.ko
+	rm -f /lib/firmware/lrdmwl/lrdmwl.ko
+	rm -f /lib/firmware/lrdmwl/lrdmwl_sdio.ko
+	rm -f /lib/firmware/lrdmwl/bluetooth.ko
+	rm -f /lib/firmware/lrdmwl/hci_uart.ko
+
+	cd /lib/firmware/lrdmwl
+	tar xvf  firmware-lrdmwl.tar1
+	sync
+	ko_check=$(md5sum "/lib/firmware/lrdmwl/compat.ko" | awk '{print $1}')
+	md5_check=$(cat "/lib/firmware/lrdmwl/compat.md5")
+	if [ "$ko_check" == "$md5_check" ]; then
+		compat_check=1
+	fi
+	ko_check=$(md5sum "/lib/firmware/lrdmwl/cfg80211.ko" | awk '{print $1}')
+	md5_check=$(cat "/lib/firmware/lrdmwl/cfg80211.md5")
+	if [ "$ko_check" == "$md5_check" ]; then
+		cfg80211_check=1
+	fi
+	ko_check=$(md5sum "/lib/firmware/lrdmwl/mac80211.ko" | awk '{print $1}')
+	md5_check=$(cat "/lib/firmware/lrdmwl/mac80211.md5")
+	if [ "$ko_check" == "$md5_check" ]; then
+		mac80211_check=1
+	fi
+	ko_check=$(md5sum "/lib/firmware/lrdmwl/lrdmwl.ko" | awk '{print $1}')
+	md5_check=$(cat "/lib/firmware/lrdmwl/lrdmwl.md5")
+	if [ "$ko_check" == "$md5_check" ]; then
+		lrdmwl_check=1
+	fi
+	ko_check=$(md5sum "/lib/firmware/lrdmwl/lrdmwl_sdio.ko" | awk '{print $1}')
+	md5_check=$(cat "/lib/firmware/lrdmwl/lrdmwl_sdio.md5")
+	if [ "$ko_check" == "$md5_check" ]; then
+		lrdmwl_sdio_check=1
+	fi
+	ko_check=$(md5sum "/lib/firmware/lrdmwl/bluetooth.ko" | awk '{print $1}')
+	md5_check=$(cat "/lib/firmware/lrdmwl/bluetooth.md5")
+	if [ "$ko_check" == "$md5_check" ]; then
+		bluetooth_check=1
+	fi
+	ko_check=$(md5sum "/lib/firmware/lrdmwl/hci_uart.ko" | awk '{print $1}')
+	md5_check=$(cat "/lib/firmware/lrdmwl/hci_uart.md5")
+	if [ "$ko_check" == "$md5_check" ]; then
+		hci_check=1
+	fi
+
+	if [ "$hci_check" == "1" ] && [ "$bluetooth_check" == "1" ] && [ "$lrdmwl_check" == "1" ] && [ "$lrdmwl_sdio_check" == "1" ] && [ "$cfg80211_check" == "1" ] && [ "$mac80211_check" == "1" ] && [ "$compat_check" == "1" ]; then
+		echo 1 > /lib/firmware/lrdmwl/installed
+	fi
+
+}
+if [ -f "/lib/firmware/lrdmwl/installed" ]
+then
+	echo "ready wifi mod"
+else
+	echo "install wifi mod"
+	install_fw
+fi
+
+cat /proc/cmdline | grep wifibt_boot=1
+if [ $? -eq 0 ];then
+	echo "WIFI driver"
+	insmod /lib/firmware/lrdmwl/compat.ko
+	echo "insmod compat"
+	insmod /lib/firmware/lrdmwl/cfg80211.ko
+	echo "insmod cfg80211"
+	insmod /lib/firmware/lrdmwl/mac80211.ko
+	echo "insmod mac80211"
+	insmod /lib/firmware/lrdmwl/lrdmwl.ko
+	echo "insmod lrdmwl"
+	insmod /lib/firmware/lrdmwl/lrdmwl_sdio.ko
+	echo "insmod lrdmwl_sdio"
+	# ifconfig wlan0 up
+
+	echo "BT driver"
+	insmod /lib/firmware/lrdmwl/bluetooth.ko
+	echo "insmod bluetooth"
+	insmod /lib/firmware/lrdmwl/hci_uart.ko
+	echo "insmod hci_uart"
+	hciattach /dev/ttymxc1 any -s 3000000 3000000 flow dtron
+else
+	echo no need to insmod wifibt driver
+fi

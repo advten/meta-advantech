@@ -1,0 +1,11 @@
+[Unit]
+Description=start dhcp and setting enp interface
+After=multi-user.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/initenp
+
+
+[Install]
+WantedBy=multi-user.target

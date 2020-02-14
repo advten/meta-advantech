@@ -1,0 +1,10 @@
+#!/bin/sh -e
+ifconfig wlan0 up
+echo "power_save off"
+iw dev wlan0 set power_save off
+sleep 1
+echo "wpa_supplicant etc/tis_wpa.conf"
+killall wpa_supplicant &>/dev/null
+sleep 5
+echo "connect AP..."
+wpa_supplicant -Dnl80211 -c /etc/tis_wpa.conf -i wlan0 -B

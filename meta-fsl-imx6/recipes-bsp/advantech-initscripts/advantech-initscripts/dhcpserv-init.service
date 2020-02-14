@@ -1,0 +1,10 @@
+[Unit]
+Description=The dhcp server init service
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/lib/dhcpserv-init.sh
+
+[Install]
+WantedBy=custom.target

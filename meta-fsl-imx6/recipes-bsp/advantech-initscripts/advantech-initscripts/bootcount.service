@@ -1,0 +1,10 @@
+[Unit]
+Description=Bootcount service
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/lib/bootcount.sh
+
+[Install]
+WantedBy=custom.target

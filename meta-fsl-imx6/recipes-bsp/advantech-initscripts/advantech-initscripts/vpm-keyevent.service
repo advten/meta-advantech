@@ -1,0 +1,11 @@
+[Unit]
+Description=VPM Keyevent service
+After=multi-user.target
+
+[Service]
+Type=oneshot
+Environment="VPM_INIT_MODE=/sys/devices/soc0/soc/2100000.aips-bus/21a0000.i2c/i2c-0/0-0068/vpmintmode"
+ExecStart=/bin/sh -c "if [ -f "$VPM_INIT_MODE" ]; then echo 1 > "$VPM_INIT_MODE"; else echo "failed"; fi"
+
+[Install]
+WantedBy=custom.target

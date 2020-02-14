@@ -1,0 +1,9 @@
+#!/bin/sh -e
+echo "configuring network interfaces... "
+/sbin/sysctl -e -p /etc/sysctl.conf >/dev/null 2>&1
+/sbin/ifup -a
+echo "done."
+
+echo "start dhcp... "
+/usr/sbin/dhcpd  -f &
+echo "done."

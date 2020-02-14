@@ -1,0 +1,12 @@
+[Unit]
+Description=Bluetooth init service
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/lib/bt-init.sh
+#ExecStart=/usr/bin/hciattach /dev/ttymxc1 any 115200
+RemainAfterExit=yes
+
+[Install]
+WantedBy=custom.target

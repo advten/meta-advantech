@@ -1,0 +1,9 @@
+[Unit]
+Description=Advantech OTA Download Service 2
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/UpdateServer.py -k /etc/updateServerPublicKey.pem
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,9 @@
+[Unit]
+Description=EMMC Download Service
+
+[Service]
+Type=oneshot
+ExecStart=/emmc/emmc-download.sh
+
+[Install]
+WantedBy=multi-user.target

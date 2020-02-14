@@ -1,0 +1,5 @@
+#!/bin/sh -e
+echo "SISO_mode=2"
+cp -f /lib/firmware/lrdmwl/x2wifi.sh /usr/bin/lrdmwl
+sync 
+reboot 

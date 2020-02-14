@@ -1,0 +1,45 @@
+#!/bin/sh -e
+cd /lib/firmware/lrdmwl
+echo "install mfg tool"
+./set_mfg.sh > /dev/null
+echo "remove mfg fw"
+./clean_mfg_fw.sh > /dev/null
+
+echo ""
+cat /sys/kernel/debug/ieee80211/phy0/mwlwifi/info | grep region
+read -p "
+region lsit:
+0x10 = FCC
+0x20 = IC
+0x30 = ETSI
+0x31 = KCC
+0x40 = JP
+0xff = WW
+
+Please input new region(For example:FCC): " region
+
+if [ "$region" == "FCC" ]; then
+echo "region:FCC"
+lmu -reg FCC
+fi
+if [ "$region" == "IC" ]; then
+echo "region:IC"
+lmu -reg IC
+fi
+if [ "$region" == "ETSI" ]; then
+echo "region:ETSI"
+lmu -reg ETSI
+fi
+if [ "$region" == "KCC" ]; then
+echo "region:KCC"
+lmu -reg KCC
+fi
+if [ "$region" == "JP" ]; then
+echo "region:JP"
+lmu -reg JP
+fi
+if [ "$region" == "WW" ]; then
+echo "region:WW"
+lmu -reg WW
+fi
+

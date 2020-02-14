@@ -1,0 +1,11 @@
+[Unit]
+Description=start auto_brightness
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/init_auto_brightness
+
+
+[Install]
+WantedBy=custom.target

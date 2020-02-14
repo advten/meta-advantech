@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+ifconfig wlan0 up
+sleep 1
+killall wpa_supplicant &>/dev/null
+sleep 5
+echo "connect AP..."
+wpa_supplicant -Dnl80211 -c /etc/5g_wpa.conf -i wlan0 -B
+sleep 3
+echo "get IP..."
+udhcpc -i wlan0 -t 3 -T 3 -n

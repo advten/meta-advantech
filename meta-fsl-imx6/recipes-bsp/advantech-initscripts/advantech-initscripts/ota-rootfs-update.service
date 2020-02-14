@@ -1,0 +1,10 @@
+[Unit]
+Description=update ota rootfs service
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/lib/ota-rootfs-update.sh
+
+[Install]
+WantedBy=custom.target

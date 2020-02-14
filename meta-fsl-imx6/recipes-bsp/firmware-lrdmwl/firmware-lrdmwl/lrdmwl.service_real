@@ -1,0 +1,11 @@
+[Unit]
+Description=start lrdmwl
+After=multi-user.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/lrdmwl
+
+
+[Install]
+WantedBy=multi-user.target
